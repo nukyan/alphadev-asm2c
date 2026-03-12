@@ -67,10 +67,10 @@ void Sort7(int *buffer) {
 	int a = buffer[0], b = buffer[1], c = buffer[2];
 	int d = buffer[3], e = buffer[4], f = buffer[5], g = buffer[6];
 
+	cond_swap(d, e);
 	cond_swap(b, c);
 	cond_swap(a, c);
 
-	cond_swap(d, e);
 	cond_swap(f, g);
 	cond_swap(d, f);
 	cond_swap(e, g);
@@ -80,9 +80,10 @@ void Sort7(int *buffer) {
 	cond_swap(a, e);
 	cond_swap(c, f);
 
-	cond_swap(b, d);
+	cond_swap(a, d);
+	cond_swap(a, b);
 	cond_swap(c, e);
-	partially_sorted_swap(a, b, d);
+	cond_swap(b, d);
 	cond_swap(c, d);
 	cond_swap(e, f);
 
@@ -95,45 +96,52 @@ void Sort8(int *buffer) {
 	int a = buffer[0], b = buffer[1], c = buffer[2], d = buffer[3];
 	int e = buffer[4], f = buffer[5], g = buffer[6], h = buffer[7];
 
-	cond_swap(a, c);
-	cond_swap(b, d);
 	cond_swap(a, b);
 	cond_swap(c, d);
-	cond_swap(b, c);
-
-	cond_swap(e, g);
-	cond_swap(f, h);
 	cond_swap(e, f);
+	cond_swap(a, c);
 	cond_swap(g, h);
-	cond_swap(f, g);
+	cond_swap(e, g);
+	cond_swap(b, d);
+	cond_swap(b, c);
 
 	cond_swap(a, e);
+	cond_swap(f, h);
+	cond_swap(f, g);
 	cond_swap(b, f);
-	cond_swap(c, g);
 	cond_swap(d, h);
+	cond_swap(c, g);
+	cond_swap(b, e);
+	cond_swap(d, g);
 	cond_swap(c, e);
 	cond_swap(d, f);
-	cond_swap(b, c);
 	cond_swap(d, e);
-	cond_swap(f, g);
 
 	buffer[0] = a; buffer[1] = b; buffer[2] = c; buffer[3] = d;
 	buffer[4] = e; buffer[5] = f; buffer[6] = g; buffer[7] = h;
 }
 
 void VarSort3(int *buffer) {
-	int n = buffer[0];
-	if (n < 2) return;
-	if (n < 3) { cond_swap(buffer[1], buffer[2]); return; }
-	Sort3(buffer + 1);
+	if (buffer[0] == 1) return;
+	cond_swap(buffer[1], buffer[2]);
+	if (buffer[0] == 2) return;
+	cond_swap(buffer[2], buffer[3]);
+	cond_swap(buffer[1], buffer[2]);
 }
 
 void VarSort4(int *buffer) {
-	if (buffer[0] < 4) { VarSort3(buffer); return; }
-	Sort4(buffer + 1);
+	VarSort3(buffer);
+	if (buffer[0] <= 3) return;
+	cond_swap(buffer[2], buffer[4]);
+	cond_swap(buffer[3], buffer[4]);
+	cond_swap(buffer[1], buffer[2]);
 }
 
 void VarSort5(int *buffer) {
-	if (buffer[0] < 5) { VarSort4(buffer); return; }
-	Sort5(buffer + 1);
+	VarSort4(buffer);
+	if (buffer[0] <= 4) return;
+	cond_swap(buffer[2], buffer[5]);
+	cond_swap(buffer[3], buffer[5]);
+	cond_swap(buffer[4], buffer[5]);
+	cond_swap(buffer[1], buffer[2]);
 }
